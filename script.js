@@ -77,7 +77,7 @@ function translateLatinCharacter(character) {
 let morseResult = translateLatinCharacter("A")
 console.log(morseResult)
 
-// Utilise la fonction getLatinCharacterList pour transformer le texte en tableau de caractères
+// Fonction qui prend un texte et retourne son équivalent en morse
 function encode(string) {
     // Appel fonction getLatinCharacterList à chaque caractère et retourne le résultat en morse
     let characterList = getLatinCharacterList(string)
@@ -94,3 +94,28 @@ function encode(string) {
 // Test de la fonction 
 let encodeString = encode("Hello, world")
 console.log(encodeString)
+
+// fonction qui prend du morse pour retourner l'équivalent en chaîne de caractère 
+function decode() {
+    // Divise la chaîne de morse en mots
+    let words = morseString.split(" / ")
+
+    // Décode chaque mot séparément
+    let decodeWords = words.map(word => {
+        let letters = word.split(" ")
+
+        // décode chaque lettre en morse et obtenir son caractère correspondant
+        let decodeLetters = letters.map(letter => {
+            return morseToLatin[letter] || ""
+        })
+        // Join les lettres pour former un mot
+        return decodeLetters.join("")
+    })
+    // Join les mots avec un espace
+    return decodeWords.join(" ")
+}
+
+// Test de la fonction
+let morseString = ".... . .-.. .-.. --- / .-- --- .-. .-.. -.."
+let decodeString = decode(morseString)
+console.log(decodeString)
