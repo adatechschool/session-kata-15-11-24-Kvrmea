@@ -56,66 +56,52 @@ const morseToLatin = {
     '....': "H"
   }
 
-/* let characterList = ["H", "e", "l", "l", "o", ",", " ", "w", "o", "r", "l", "d"]
-resultat attendu */
-
-// Fonction qui prend en paramètre du texte et retourne un tableau de chaque caractère
+// Fonction pour obtenir une liste de caractères à partir du texte
 function getLatinCharacterList(text) {
-    return text.split("")
+    return text.split("") // Split en tableau pour chaque caractère
 }
 
-// Test de la fonction 
-let result = getLatinCharacterList("Hello, world")
-console.log(result)
-
-// Fonction qui prend un paramètre un caractère et renvoie sa correspondance en morse
+// Fonction pour traduire un caractère en morse
 function translateLatinCharacter(character) {
-    return latinToMorse[character.toUpperCase()] || null
+    return latinToMorse[character.toUpperCase()] || " " // Utiliser le morse pour chaque caractère
 }
 
-// Test de la fonction avec "A"
-let morseResult = translateLatinCharacter("A")
-console.log(morseResult)
-
-// Fonction qui prend un texte et retourne son équivalent en morse
+// Fonction pour encoder le texte en morse
 function encode(string) {
-    // Appel fonction getLatinCharacterList à chaque caractère et retourne le résultat en morse
-    let characterList = getLatinCharacterList(string)
-
-    // Applique la fonction translateLatinCharacter à chaque caractère et retourne le résultat en morse
+    let characterList = getLatinCharacterList(string) // Divise le texte en caractères
     let morseList = characterList.map(character => {
-        return translateLatinCharacter(character) || " "
+        return translateLatinCharacter(character) || " " // Convertir chaque caractère en morse
     })
-
-    // Join les éléments de morse avec un espace pour les séparer
-    return morseList.join(" ")
+    return morseList.join(" ") // Joindre les caractères morse avec un espace entre eux
 }
 
-// Test de la fonction 
-let encodeString = encode("Hello, world")
-console.log(encodeString)
-
-// fonction qui prend du morse pour retourner l'équivalent en chaîne de caractère 
-function decode() {
-    // Divise la chaîne de morse en mots
-    let words = morseString.split(" / ")
-
-    // Décode chaque mot séparément
-    let decodeWords = words.map(word => {
-        let letters = word.split(" ")
-
-        // décode chaque lettre en morse et obtenir son caractère correspondant
-        let decodeLetters = letters.map(letter => {
-            return morseToLatin[letter] || ""
+// Fonction pour décoder le morse en texte
+function decode(morseString) {
+    let words = morseString.split(" / ") // Divise le morse en mots (séparés par "/")
+    let decodedWords = words.map(word => {
+        let letters = word.split(" ") // Divise chaque mot morse en lettres
+        let decodedLetters = letters.map(letter => {
+            return morseToLatin[letter] || "" // Décoder chaque lettre en texte
         })
-        // Join les lettres pour former un mot
-        return decodeLetters.join("")
+        return decodedLetters.join("") // Joindre les lettres pour former un mot
     })
-    // Join les mots avec un espace
-    return decodeWords.join(" ")
+    return decodedWords.join(" ") // Joindre les mots en texte avec un espace
 }
 
-// Test de la fonction
-let morseString = ".... . .-.. .-.. --- / .-- --- .-. .-.. -.."
-let decodeString = decode(morseString)
-console.log(decodeString)
+// Fonction pour traduire le texte en morse
+function translateToMorse() {
+    const text = document.getElementById("textInput").value // Récupère le texte de l'utilisateur
+    const morse = encode(text) // Encode en morse
+    document.getElementById("output").textContent = morse // Affiche le résultat
+}
+
+// Fonction pour traduire le morse en texte
+function translateToText() {
+    const morse = document.getElementById("morseInput").value // Récupère le morse de l'utilisateur
+    const text = decode(morse) // Décode en texte
+    document.getElementById("output").textContent = text // Affiche le résultat
+}
+
+// Ajouter des gestionnaires d'événements pour les boutons
+document.getElementById("translateToMorseBtn").addEventListener("click", translateToMorse)
+document.getElementById("translateToTextBtn").addEventListener("click", translateToText)

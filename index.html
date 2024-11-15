@@ -3,9 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parlez vous le morse</title>
+    <title>Parlez-vous le morse</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script type="module" src="script/script.js"></script>
+
+    <div class="container">
+        <h1>Traduction entre Texte et Morse</h1>
+
+        <!-- Section pour saisir le texte et le traduire en morse -->
+        <div class="input-container">
+            <label for="textInput">Entrez un texte :</label>
+            <input type="text" id="textInput" placeholder="Texte à traduire">
+            <button id="translateToMorseBtn">Traduire en Morse</button>
+        </div>
+
+        <!-- Section pour saisir le morse et le traduire en texte -->
+        <div class="input-container">
+            <label for="morseInput">Entrez un code Morse :</label>
+            <input type="text" id="morseInput" placeholder="Code morse à traduire">
+            <button id="translateToTextBtn">Traduire en Texte</button>
+        </div>
+
+        <!-- Zone pour afficher le résultat -->
+        <div class="output-container">
+            <h2>Résultat :</h2>
+            <p id="output"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
